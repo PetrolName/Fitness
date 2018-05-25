@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_280"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/image_default_course" />
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/dp_27"
+        android:layout_height="@dimen/dp_27"
+        android:padding="@dimen/dp_5"
+        android:src="@mipmap/icon_detail_back"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+         />
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="@dimen/dp_27"
+        android:layout_height="@dimen/dp_27"
+        android:padding="@dimen/dp_5"
+        android:src="@mipmap/icon_more"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_alignParentRight="true"
+         />
+
+    <ImageView
+        android:id="@+id/ivJoinTraining"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:src="@mipmap/icon_add"
+        android:background="@drawable/round_cfee13c_bg"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-25dp"
+        android:layout_marginRight="@dimen/dp_20"
+        android:padding="@dimen/dp_13"
+        android:layout_below="@+id/bg"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bg"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_30"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_18"
+        tools:text="张三" />
+
+    <TextView
+        android:id="@+id/tvHasAppliance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_13"
+        tools:text="无器械" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/tvHasAppliance"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/ce5e5e5" />
+
+    <LinearLayout
+        android:id="@+id/detailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageLayout"
+            android:layout_below="@+id/imageLayout"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15"
+                tools:text="3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="时长/分钟"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvStrength"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15"
+                tools:text="低" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="强度"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/imageLayout"
+            android:layout_below="@+id/imageLayout"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvExpend"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15"
+                tools:text="3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="燃脂/大卡"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/detailLayout"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@color/ce5e5e5" />
+
+    <TextView
+        android:id="@+id/tvDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:padding="@dimen/dp_15"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_12"
+        tools:text="针对女性专项课程，帮助打造挺胸型" />
+</RelativeLayout>

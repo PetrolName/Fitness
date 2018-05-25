@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewTabView"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_50"
+    android:layout_gravity="bottom">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_22"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_5"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvUnreadBubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/ivIcon"
+        android:layout_alignTop="@id/ivIcon"
+        android:layout_marginEnd="-5dp"
+        android:layout_marginRight="-5dp"
+        android:layout_marginTop="-5dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lines="1"
+        android:padding="@dimen/dp_2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_10"
+        android:visibility="gone"
+        tools:text="99+" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivIcon"
+        android:layout_centerHorizontal="true"
+        android:textColor="@drawable/selector_text_main"
+        android:textSize="@dimen/sp_10"
+        tools:text="@string/app_name" />
+
+</RelativeLayout>
