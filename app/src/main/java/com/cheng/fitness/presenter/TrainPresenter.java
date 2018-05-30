@@ -21,7 +21,7 @@ public class TrainPresenter extends BasePresenterImpl<TrainContact.view> impleme
     }
 
     @Override
-    public void getMinePlan(String category) {
+    public void getMinePlan() {
         List<CourseBean> courseBeans = GreenDaoUtil.getMinePlanCourse(true);
         if (courseBeans != null) {
             view.onGetMinePlanSuccess(courseBeans);

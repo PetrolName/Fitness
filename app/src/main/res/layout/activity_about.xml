@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cf6f5f5"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fit me"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_50"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1.0.0"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="期待你的加入，与我一起将它做的更好。
+如果你有新的想法，请联系我：
+744157350@qq.com"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/c999999"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_50"
+        />
+
+</LinearLayout>

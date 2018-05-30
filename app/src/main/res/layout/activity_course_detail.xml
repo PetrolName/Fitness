@@ -19,7 +19,7 @@
         android:padding="@dimen/dp_5"
         android:src="@mipmap/icon_detail_back"
         android:layout_marginTop="@dimen/dp_15"
-        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_10"
          />
 
     <ImageView
@@ -29,7 +29,7 @@
         android:padding="@dimen/dp_5"
         android:src="@mipmap/icon_more"
         android:layout_marginTop="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_10"
         android:layout_alignParentRight="true"
          />
 

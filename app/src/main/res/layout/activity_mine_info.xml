@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cf6f5f5"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_divider_1" />
+
+    <LinearLayout
+        android:id="@+id/avatarLayout"
+        style="@style/MineLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_10"
+            android:text="头像"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_12" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatarImage"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_20"
+            android:src="@mipmap/image_default_avatar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@mipmap/icon_right_gray" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_divider_1l" />
+
+    <LinearLayout
+        android:id="@+id/nicknameLayout"
+        style="@style/MineLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_10"
+            android:text="昵称"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tvNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:textColor="@color/c999999"
+            tools:text="昵称" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@mipmap/icon_right_gray" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_divider_1l" />
+
+    <LinearLayout
+        android:id="@+id/genderLayout"
+        style="@style/MineLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_10"
+            android:text="性別"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:textColor="@color/c999999"
+            tools:text="男" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@mipmap/icon_right_gray" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLogout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_50"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_15" />
+
+
+</LinearLayout>

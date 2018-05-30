@@ -1,8 +1,12 @@
 package com.cheng.fitness.utils;
 
+import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.CourseBean;
+import com.cheng.fitness.model.UserBean;
 import com.cheng.fitness.utils.greendao.DaoManager;
+import com.cheng.fitness.utils.greendao.gen.CommunityBeanDao;
 import com.cheng.fitness.utils.greendao.gen.CourseBeanDao;
+import com.cheng.fitness.utils.greendao.gen.UserBeanDao;
 
 import java.util.List;
 
@@ -38,5 +42,48 @@ public class GreenDaoUtil {
         CourseBeanDao dao = DaoManager.getInstance().getDaoSession().getCourseBeanDao();
         List<CourseBean> list = dao.queryBuilder().where(CourseBeanDao.Properties.HasAddPlan.eq(true)).build().list();
         return list;
+    }
+
+    //保存用户信息
+    public static void saveUser(UserBean bean) {
+        UserBeanDao dao = DaoManager.getInstance().getDaoSession().getUserBeanDao();
+        dao.insertOrReplace(bean);
+    }
+
+    //更新用户信息
+    public static void updateUser(UserBean bean) {
+        UserBeanDao dao = DaoManager.getInstance().getDaoSession().getUserBeanDao();
+        dao.update(bean);
+    }
+
+    //查找用户信息
+    public static UserBean getUser(String nickname) {
+        UserBeanDao dao = DaoManager.getInstance().getDaoSession().getUserBeanDao();
+        UserBean bean = dao.queryBuilder().where(UserBeanDao.Properties.Nickname.eq(nickname)).build().unique();
+        return bean;
+    }
+
+    //保存社区信息
+    public static void saveCommunity(CommunityBean bean) {
+        CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
+        dao.insertOrReplace(bean);
+    }
+
+    //保存多个社区信息
+    public static void saveCommunities(List<CommunityBean> beans) {
+        CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
+        dao.insertOrReplaceInTx(beans);
+    }
+
+    //获取社区信息
+    public static List<CommunityBean> getCommunities() {
+        CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
+        return dao.queryBuilder().list();
+    }
+
+    //保存用户信息
+    public static void updateCommunity(CommunityBean bean) {
+        CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
+        dao.update(bean);
     }
 }

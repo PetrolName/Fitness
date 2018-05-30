@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 
+import com.cheng.baselib.utils.ActivityManager;
 import com.cheng.fitness.R;
 import com.cheng.fitness.views.widget.BottomTabView;
 
@@ -26,6 +27,7 @@ public abstract class BottomTabBaseActivity extends AppCompatActivity {
 //        if (Build.VERSION.SDK_INT >= 21) {
 //            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
 //        }
+        ActivityManager.getAppInstance().addActivity(this);//将当前activity添加进入管理栈
         setContentView(R.layout.activity_base_bottom_tab);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);

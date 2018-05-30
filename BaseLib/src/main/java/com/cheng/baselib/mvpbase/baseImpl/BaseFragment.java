@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cheng.baselib.mvpbase.BasePresenter;
 import com.cheng.baselib.mvpbase.BaseView;
@@ -103,6 +104,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void loadData() {
 
+    }
+
+    public void showToast(String content) {
+        Toast.makeText(getActivity(), content, Toast.LENGTH_SHORT).show();
     }
 
     /**

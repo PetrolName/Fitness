@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fitness</string>
+    <string name="fitness_time">%s分钟</string>
+    <string name="fitness_strength">强度%s</string>
 </resources>

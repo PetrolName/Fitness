@@ -111,6 +111,7 @@
             android:id="@+id/mineFitnessPlanLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAddCourseLabel"
             android:orientation="vertical">
 
         </LinearLayout>

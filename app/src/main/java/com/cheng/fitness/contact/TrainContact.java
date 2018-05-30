@@ -19,6 +19,6 @@ public interface TrainContact {
     }
 
     interface presenter extends BasePresenter {
-        void getMinePlan(String category);
+        void getMinePlan();
     }
 }

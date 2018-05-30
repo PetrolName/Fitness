@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_rounded_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_input_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_35"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/c666666"
+        android:textSize="@dimen/sp_16"
+        tools:text="清空聊天记录:"></TextView>
+
+    <EditText
+        android:id="@+id/dialog_input_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24"
+        android:textColor="@color/c666666"
+        android:textSize="@dimen/sp_14"
+        android:background="@null"
+        tools:text="确定清楚该群组的聊天记录?"></EditText>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_15"
+        android:visibility="gone"
+        android:background="@color/c666666" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@color/c999999" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_49"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_input_button_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_center_content_dialog_bottom_left"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/c666666"
+            android:textSize="@dimen/sp_18"></Button>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/c999999"></View>
+
+        <Button
+            android:id="@+id/dialog_input_button_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_center_content_dialog_bottom_right"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/c666666"
+            android:textSize="@dimen/sp_18"></Button>
+
+    </LinearLayout>
+
+</LinearLayout>

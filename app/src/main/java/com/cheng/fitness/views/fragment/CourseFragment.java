@@ -86,12 +86,6 @@ public class CourseFragment extends BaseFragment<CourseContact.presenter> implem
         });
     }
 
-//    @Override
-//    public void loadData() {
-//        super.loadData();
-//
-//    }
-
     @Override
     public void reLoadData() {
         super.reLoadData();
@@ -146,6 +140,6 @@ public class CourseFragment extends BaseFragment<CourseContact.presenter> implem
     //根据类别获取课程失败
     @Override
     public void onGetCourseByCategoryFail(String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        showToast(msg);
     }
 }

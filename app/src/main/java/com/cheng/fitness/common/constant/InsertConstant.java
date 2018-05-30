@@ -1,5 +1,6 @@
 package com.cheng.fitness.common.constant;
 
+import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.CourseBean;
 import com.cheng.fitness.utils.GreenDaoUtil;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 public class InsertConstant {
-    public static void insert() {
+    public static void insertCourses() {
         List<CourseBean> beans = new ArrayList<>();
 
         CourseBean bean1 = new CourseBean();
@@ -90,11 +91,43 @@ public class InsertConstant {
 
         GreenDaoUtil.saveCourses(beans);
 
-        List<CourseBean> courseBeens = GreenDaoUtil.getCoursesByCategory("高效燃脂");
-        if (courseBeens.size() == 0) {
-            System.out.println("数据库 0");
-        } else {
-            System.out.println(courseBeens.size() + " 数据库 " + courseBeens.get(0).getDetail());
-        }
+    }
+
+    public static void insertCommunities() {
+        List<CommunityBean> beans = new ArrayList<>();
+
+        CommunityBean bean1 = new CommunityBean();
+        bean1.setName("LUVDUT");
+        bean1.setContent("清晨的阳光真好！大家起床了吗？一起来慢跑吧！");
+        bean1.setTime("2018.5.21");
+        bean1.setComment(3);
+        bean1.setLike(5);
+        beans.add(bean1);
+
+        CommunityBean bean2 = new CommunityBean();
+        bean2.setName("索拉卡");
+        bean2.setContent("清晨的阳光真好！大家起床了吗？一起来慢跑吧！");
+        bean2.setTime("2018.5.28");
+        bean2.setComment(1);
+        bean2.setLike(3);
+        beans.add(bean2);
+
+        CommunityBean bean3 = new CommunityBean();
+        bean3.setName("易小天");
+        bean3.setContent("今日打卡，在外出差也不能停下来锻炼的脚步！就是这么任性，就是要成为一个自律的人。我感觉到自己离练成漂亮的腹肌越来越近了。");
+        bean3.setTime("2018.5.27");
+        bean3.setComment(2);
+        bean3.setLike(5);
+        beans.add(bean3);
+
+        CommunityBean bean4 = new CommunityBean();
+        bean4.setName("琪琪要成为型男");
+        bean4.setContent("夏天越来越近了，我再也不是冬天的那个胖子了，再也不是！");
+        bean4.setTime("2018.5.28");
+        bean4.setComment(5);
+        bean4.setLike(8);
+        beans.add(bean4);
+
+        GreenDaoUtil.saveCommunities(beans);
     }
 }

@@ -25,10 +25,11 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Avatar = new Property(2, String.class, "avatar", false, "AVATAR");
-        public final static Property Nickname = new Property(3, String.class, "nickname", false, "NICKNAME");
+        public final static Property Avatar = new Property(1, String.class, "avatar", false, "AVATAR");
+        public final static Property Nickname = new Property(2, String.class, "nickname", false, "NICKNAME");
+        public final static Property Password = new Property(3, String.class, "password", false, "PASSWORD");
         public final static Property Gender = new Property(4, String.class, "gender", false, "GENDER");
+        public final static Property IsFirstTime = new Property(5, boolean.class, "isFirstTime", false, "IS_FIRST_TIME");
     };
 
 
@@ -45,10 +46,11 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"NAME\" TEXT," + // 1: name
-                "\"AVATAR\" TEXT," + // 2: avatar
-                "\"NICKNAME\" TEXT," + // 3: nickname
-                "\"GENDER\" TEXT);"); // 4: gender
+                "\"AVATAR\" TEXT," + // 1: avatar
+                "\"NICKNAME\" TEXT," + // 2: nickname
+                "\"PASSWORD\" TEXT," + // 3: password
+                "\"GENDER\" TEXT," + // 4: gender
+                "\"IS_FIRST_TIME\" INTEGER NOT NULL );"); // 5: isFirstTime
     }
 
     /** Drops the underlying database table. */
@@ -66,25 +68,26 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             stmt.bindLong(1, id);
         }
  
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(2, name);
-        }
- 
         String avatar = entity.getAvatar();
         if (avatar != null) {
-            stmt.bindString(3, avatar);
+            stmt.bindString(2, avatar);
         }
  
         String nickname = entity.getNickname();
         if (nickname != null) {
-            stmt.bindString(4, nickname);
+            stmt.bindString(3, nickname);
+        }
+ 
+        String password = entity.getPassword();
+        if (password != null) {
+            stmt.bindString(4, password);
         }
  
         String gender = entity.getGender();
         if (gender != null) {
             stmt.bindString(5, gender);
         }
+        stmt.bindLong(6, entity.getIsFirstTime() ? 1L: 0L);
     }
 
     @Override
@@ -96,25 +99,26 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             stmt.bindLong(1, id);
         }
  
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(2, name);
-        }
- 
         String avatar = entity.getAvatar();
         if (avatar != null) {
-            stmt.bindString(3, avatar);
+            stmt.bindString(2, avatar);
         }
  
         String nickname = entity.getNickname();
         if (nickname != null) {
-            stmt.bindString(4, nickname);
+            stmt.bindString(3, nickname);
+        }
+ 
+        String password = entity.getPassword();
+        if (password != null) {
+            stmt.bindString(4, password);
         }
  
         String gender = entity.getGender();
         if (gender != null) {
             stmt.bindString(5, gender);
         }
+        stmt.bindLong(6, entity.getIsFirstTime() ? 1L: 0L);
     }
 
     @Override
@@ -126,10 +130,11 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
     public UserBean readEntity(Cursor cursor, int offset) {
         UserBean entity = new UserBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // avatar
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // nickname
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // gender
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // avatar
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickname
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // password
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // gender
+            cursor.getShort(offset + 5) != 0 // isFirstTime
         );
         return entity;
     }
@@ -137,10 +142,11 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
     @Override
     public void readEntity(Cursor cursor, UserBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setAvatar(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setNickname(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setAvatar(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setNickname(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPassword(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setGender(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIsFirstTime(cursor.getShort(offset + 5) != 0);
      }
     
     @Override

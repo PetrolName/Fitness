@@ -8,4 +8,6 @@ package com.cheng.fitness.common.constant;
 
 public class Constant {
     public static String KEY_COURSE = "key_course";
+
+    public static String KEY_COMMUNITY = "key_community";
 }

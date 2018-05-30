@@ -12,4 +12,32 @@
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
     </style>
+
+    <style name="MineTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dp_3</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:drawableRight">@mipmap/icon_right_gray</item>
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:textColor">@color/c666666</item>
+        <item name="android:textSize">@dimen/sp_13</item>
+    </style>
+
+    <style name="MineLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_50</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="center_content_dialog" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowFrame">@color/transparent</item>-->
+        <item name="android:windowBackground">@color/trans</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
 </resources>
