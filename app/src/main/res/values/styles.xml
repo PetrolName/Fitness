@@ -15,9 +15,10 @@
 
     <style name="MineTextStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/dp_50</item>
         <item name="android:layout_marginTop">@dimen/dp_3</item>
         <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:drawableRight">@mipmap/icon_right_gray</item>
         <item name="android:padding">@dimen/dp_10</item>
         <item name="android:textColor">@color/c666666</item>
