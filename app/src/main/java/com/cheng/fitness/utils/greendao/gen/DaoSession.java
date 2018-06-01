@@ -8,11 +8,13 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import com.cheng.fitness.model.CommentBean;
 import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.CourseBean;
 import com.cheng.fitness.model.FitnessRecordBean;
 import com.cheng.fitness.model.UserBean;
 
+import com.cheng.fitness.utils.greendao.gen.CommentBeanDao;
 import com.cheng.fitness.utils.greendao.gen.CommunityBeanDao;
 import com.cheng.fitness.utils.greendao.gen.CourseBeanDao;
 import com.cheng.fitness.utils.greendao.gen.FitnessRecordBeanDao;
@@ -27,11 +29,13 @@ import com.cheng.fitness.utils.greendao.gen.UserBeanDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig commentBeanDaoConfig;
     private final DaoConfig communityBeanDaoConfig;
     private final DaoConfig courseBeanDaoConfig;
     private final DaoConfig fitnessRecordBeanDaoConfig;
     private final DaoConfig userBeanDaoConfig;
 
+    private final CommentBeanDao commentBeanDao;
     private final CommunityBeanDao communityBeanDao;
     private final CourseBeanDao courseBeanDao;
     private final FitnessRecordBeanDao fitnessRecordBeanDao;
@@ -40,6 +44,9 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        commentBeanDaoConfig = daoConfigMap.get(CommentBeanDao.class).clone();
+        commentBeanDaoConfig.initIdentityScope(type);
 
         communityBeanDaoConfig = daoConfigMap.get(CommunityBeanDao.class).clone();
         communityBeanDaoConfig.initIdentityScope(type);
@@ -53,11 +60,13 @@ public class DaoSession extends AbstractDaoSession {
         userBeanDaoConfig = daoConfigMap.get(UserBeanDao.class).clone();
         userBeanDaoConfig.initIdentityScope(type);
 
+        commentBeanDao = new CommentBeanDao(commentBeanDaoConfig, this);
         communityBeanDao = new CommunityBeanDao(communityBeanDaoConfig, this);
         courseBeanDao = new CourseBeanDao(courseBeanDaoConfig, this);
         fitnessRecordBeanDao = new FitnessRecordBeanDao(fitnessRecordBeanDaoConfig, this);
         userBeanDao = new UserBeanDao(userBeanDaoConfig, this);
 
+        registerDao(CommentBean.class, commentBeanDao);
         registerDao(CommunityBean.class, communityBeanDao);
         registerDao(CourseBean.class, courseBeanDao);
         registerDao(FitnessRecordBean.class, fitnessRecordBeanDao);
@@ -65,10 +74,15 @@ public class DaoSession extends AbstractDaoSession {
     }
     
     public void clear() {
+        commentBeanDaoConfig.getIdentityScope().clear();
         communityBeanDaoConfig.getIdentityScope().clear();
         courseBeanDaoConfig.getIdentityScope().clear();
         fitnessRecordBeanDaoConfig.getIdentityScope().clear();
         userBeanDaoConfig.getIdentityScope().clear();
+    }
+
+    public CommentBeanDao getCommentBeanDao() {
+        return commentBeanDao;
     }
 
     public CommunityBeanDao getCommunityBeanDao() {

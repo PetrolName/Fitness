@@ -19,7 +19,7 @@
             android:background="@color/white"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_50"
+            android:paddingBottom="@dimen/dp_30"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -89,6 +89,14 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_15"
                 tools:text="坚持" />
+
+            <LinearLayout
+                android:id="@+id/commentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -148,4 +156,39 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/publishLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cfee13c"
+        android:padding="@dimen/dp_10"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="写评论"
+            android:layout_toLeftOf="@+id/tvPublish"
+            android:layout_marginRight="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:inputType="text"
+            android:textColorHint="@color/ccccccc"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/tvPublish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/c666666"
+            android:textSize="@dimen/sp_15"
+            android:text="发布"/>
+
+
+    </RelativeLayout>
 </RelativeLayout>

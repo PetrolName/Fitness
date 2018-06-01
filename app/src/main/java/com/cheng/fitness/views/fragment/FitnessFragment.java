@@ -1,7 +1,9 @@
 package com.cheng.fitness.views.fragment;
 
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -37,8 +39,8 @@ public class FitnessFragment extends BaseFragment<FitnessContact.presenter> impl
 
     @Bind(R.id.tvStartMake)
     TextView tvStartMake;
-    @Bind(R.id.tvAddTrain)
-    TextView tvAddTrain;
+    @Bind(R.id.tvSetAlarmClock)
+    TextView tvSetAlarmClock;
     @Bind(R.id.tvAddCourseLabel)
     TextView tvAddCourseLabel;
     @Bind(R.id.mineFitnessPlanLayout)
@@ -91,14 +93,14 @@ public class FitnessFragment extends BaseFragment<FitnessContact.presenter> impl
         mOnUpdateListener = onUpdateListener;
     }
 
-    @OnClick({R.id.tvStartMake, R.id.tvAddTrain})
+    @OnClick({R.id.tvStartMake, R.id.tvSetAlarmClock})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvStartMake:
                 if (mOnUpdateListener != null) mOnUpdateListener.onUpdatePosition(2);
                 break;
-            case R.id.tvAddTrain:
-
+            case R.id.tvSetAlarmClock:
+                presenter.startAlarmClock(getActivity());
                 break;
         }
     }
@@ -113,6 +115,23 @@ public class FitnessFragment extends BaseFragment<FitnessContact.presenter> impl
     @Override
     public void onGetMinePlanFail(String msg) {
         showToast(msg);
+    }
+
+    //启动闹钟成功
+    @Override
+    public void onStartAlarmClockSuccess(Intent intent) {
+        if (intent != null) {
+            getActivity().startActivity(intent);
+        } else {
+            Intent intent1 = new Intent(Settings.ACTION_DATE_SETTINGS);
+            getActivity().startActivity(intent1);
+        }
+    }
+
+    //启动闹钟失败
+    @Override
+    public void onStartAlarmClockFail(String msg) {
+
     }
 
     private void handleData(final List<CourseBean> beans) {

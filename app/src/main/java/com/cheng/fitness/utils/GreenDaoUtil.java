@@ -1,10 +1,12 @@
 package com.cheng.fitness.utils;
 
+import com.cheng.fitness.model.CommentBean;
 import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.CourseBean;
 import com.cheng.fitness.model.FitnessRecordBean;
 import com.cheng.fitness.model.UserBean;
 import com.cheng.fitness.utils.greendao.DaoManager;
+import com.cheng.fitness.utils.greendao.gen.CommentBeanDao;
 import com.cheng.fitness.utils.greendao.gen.CommunityBeanDao;
 import com.cheng.fitness.utils.greendao.gen.CourseBeanDao;
 import com.cheng.fitness.utils.greendao.gen.FitnessRecordBeanDao;
@@ -106,5 +108,27 @@ public class GreenDaoUtil {
     public static List<FitnessRecordBean> getFitnessRecords() {
         FitnessRecordBeanDao dao = DaoManager.getInstance().getDaoSession().getFitnessRecordBeanDao();
         return dao.queryBuilder().list();
+    }
+
+    //保存多个评论
+    public static void saveComment(CommentBean bean) {
+        CommentBeanDao dao = DaoManager.getInstance().getDaoSession().getCommentBeanDao();
+        dao.insertOrReplace(bean);
+    }
+    //保存多个评论
+    public static void saveComments(List<CommentBean> beans) {
+        CommentBeanDao dao = DaoManager.getInstance().getDaoSession().getCommentBeanDao();
+        dao.insertOrReplaceInTx(beans);
+    }
+    //获取评论
+    public static List<CommentBean> getComments() {
+        CommentBeanDao dao = DaoManager.getInstance().getDaoSession().getCommentBeanDao();
+        return dao.queryBuilder().list();
+    }
+
+    //获取评论
+    public static List<CommentBean> getComments(Long communityId) {
+        CommentBeanDao dao = DaoManager.getInstance().getDaoSession().getCommentBeanDao();
+        return dao.queryBuilder().where(CommentBeanDao.Properties.CommunityId.eq(communityId)).list();
     }
 }

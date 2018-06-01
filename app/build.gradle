@@ -19,7 +19,7 @@ android {
     }
 
     greendao {
-        schemaVersion 5
+        schemaVersion 6
         daoPackage 'com.cheng.fitness.utils.greendao.gen'
         targetGenDir 'src/main/java'
     }

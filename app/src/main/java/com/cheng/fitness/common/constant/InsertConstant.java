@@ -1,8 +1,10 @@
 package com.cheng.fitness.common.constant;
 
+import com.cheng.fitness.model.CommentBean;
 import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.CourseBean;
 import com.cheng.fitness.utils.GreenDaoUtil;
+import com.cheng.fitness.utils.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +102,7 @@ public class InsertConstant {
         bean1.setName("LUVDUT");
         bean1.setContent("清晨的阳光真好！大家起床了吗？一起来慢跑吧！");
         bean1.setTime("2018.5.21");
-        bean1.setComment(3);
+        bean1.setComment(0);
         bean1.setImage("image1");
         bean1.setLike(5);
         beans.add(bean1);
@@ -127,11 +129,64 @@ public class InsertConstant {
         bean4.setName("琪琪要成为型男");
         bean4.setContent("夏天越来越近了，我再也不是冬天的那个胖子了，再也不是！");
         bean4.setTime("2018.5.28");
-        bean4.setComment(5);
+        bean4.setComment(3);
         bean4.setImage("image4");
         bean4.setLike(8);
         beans.add(bean4);
 
         GreenDaoUtil.saveCommunities(beans);
+
+        List<CommentBean> commentBeanList = new ArrayList<>();
+        //评论
+        CommentBean commentBean1 = new CommentBean();
+        commentBean1.setAvatar("avatar1");
+        commentBean1.setName("Abby");
+        commentBean1.setCommunityId(bean2.getId());
+        commentBean1.setContent("棒棒哒！加油！");
+        commentBean1.setDate(SystemUtil.getDate());
+        commentBeanList.add(commentBean1);
+
+        CommentBean commentBean2 = new CommentBean();
+        commentBean2.setAvatar("avatar2");
+        commentBean2.setName("Alice");
+        commentBean2.setCommunityId(bean3.getId());
+        commentBean2.setContent("自律的人越来越强大！");
+        commentBean2.setDate(SystemUtil.getDate());
+        commentBeanList.add(commentBean2);
+
+        CommentBean commentBean3 = new CommentBean();
+        commentBean3.setAvatar("avatar3");
+        commentBean3.setName("Angell");
+        commentBean3.setCommunityId(bean3.getId());
+        commentBean3.setContent("有腹肌的男人最性感");
+        commentBean3.setDate(SystemUtil.getDate());
+        commentBeanList.add(commentBean3);
+
+        CommentBean commentBean4 = new CommentBean();
+        commentBean4.setAvatar("avatar2");
+        commentBean4.setName("Alice");
+        commentBean4.setCommunityId(bean4.getId());
+        commentBean4.setContent("胖子都是潜力股");
+        commentBean4.setDate(SystemUtil.getDate());
+        commentBeanList.add(commentBean4);
+
+        CommentBean commentBean5 = new CommentBean();
+        commentBean5.setAvatar("avatar3");
+        commentBean5.setName("Angell");
+        commentBean5.setCommunityId(bean4.getId());
+        commentBean5.setContent("苗条穿什么都好看");
+        commentBean5.setDate(SystemUtil.getDate());
+        commentBeanList.add(commentBean5);
+
+        CommentBean commentBean6 = new CommentBean();
+        commentBean6.setAvatar("avatar1");
+        commentBean6.setName("Abby");
+        commentBean6.setCommunityId(bean4.getId());
+        commentBean6.setContent("一起加油！一起变瘦！");
+        commentBean6.setDate(SystemUtil.getDate());
+        commentBeanList.add(commentBean6);
+
+        GreenDaoUtil.saveComments(commentBeanList);
+
     }
 }
