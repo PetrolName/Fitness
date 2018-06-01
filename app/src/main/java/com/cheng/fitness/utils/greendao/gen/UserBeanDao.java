@@ -29,7 +29,8 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         public final static Property Nickname = new Property(2, String.class, "nickname", false, "NICKNAME");
         public final static Property Password = new Property(3, String.class, "password", false, "PASSWORD");
         public final static Property Gender = new Property(4, String.class, "gender", false, "GENDER");
-        public final static Property IsFirstTime = new Property(5, boolean.class, "isFirstTime", false, "IS_FIRST_TIME");
+        public final static Property Birthday = new Property(5, String.class, "birthday", false, "BIRTHDAY");
+        public final static Property IsFirstTime = new Property(6, boolean.class, "isFirstTime", false, "IS_FIRST_TIME");
     };
 
 
@@ -50,7 +51,8 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
                 "\"NICKNAME\" TEXT," + // 2: nickname
                 "\"PASSWORD\" TEXT," + // 3: password
                 "\"GENDER\" TEXT," + // 4: gender
-                "\"IS_FIRST_TIME\" INTEGER NOT NULL );"); // 5: isFirstTime
+                "\"BIRTHDAY\" TEXT," + // 5: birthday
+                "\"IS_FIRST_TIME\" INTEGER NOT NULL );"); // 6: isFirstTime
     }
 
     /** Drops the underlying database table. */
@@ -87,7 +89,12 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (gender != null) {
             stmt.bindString(5, gender);
         }
-        stmt.bindLong(6, entity.getIsFirstTime() ? 1L: 0L);
+ 
+        String birthday = entity.getBirthday();
+        if (birthday != null) {
+            stmt.bindString(6, birthday);
+        }
+        stmt.bindLong(7, entity.getIsFirstTime() ? 1L: 0L);
     }
 
     @Override
@@ -118,7 +125,12 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (gender != null) {
             stmt.bindString(5, gender);
         }
-        stmt.bindLong(6, entity.getIsFirstTime() ? 1L: 0L);
+ 
+        String birthday = entity.getBirthday();
+        if (birthday != null) {
+            stmt.bindString(6, birthday);
+        }
+        stmt.bindLong(7, entity.getIsFirstTime() ? 1L: 0L);
     }
 
     @Override
@@ -134,7 +146,8 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickname
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // password
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // gender
-            cursor.getShort(offset + 5) != 0 // isFirstTime
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // birthday
+            cursor.getShort(offset + 6) != 0 // isFirstTime
         );
         return entity;
     }
@@ -146,7 +159,8 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         entity.setNickname(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setPassword(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setGender(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setIsFirstTime(cursor.getShort(offset + 5) != 0);
+        entity.setBirthday(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setIsFirstTime(cursor.getShort(offset + 6) != 0);
      }
     
     @Override

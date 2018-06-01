@@ -2,6 +2,7 @@ package com.cheng.fitness;
 
 import com.cheng.fitness.model.CourseBean;
 import com.cheng.fitness.utils.GreenDaoUtil;
+import com.cheng.fitness.utils.ResUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        String str = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(new Date());
-        System.out.println(str);
+//        String str = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(new Date());
+//        System.out.println(str);
     }
 }

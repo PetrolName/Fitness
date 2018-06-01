@@ -1,8 +1,7 @@
 package com.cheng.fitness.presenter;
 
 import com.cheng.baselib.mvpbase.baseImpl.BasePresenterImpl;
-import com.cheng.fitness.contact.CourseContact;
-import com.cheng.fitness.contact.TrainContact;
+import com.cheng.fitness.contact.FitnessContact;
 import com.cheng.fitness.model.CourseBean;
 import com.cheng.fitness.utils.GreenDaoUtil;
 
@@ -14,9 +13,9 @@ import java.util.List;
  * desc:
  */
 
-public class TrainPresenter extends BasePresenterImpl<TrainContact.view> implements TrainContact.presenter {
+public class FitnessPresenter extends BasePresenterImpl<FitnessContact.view> implements FitnessContact.presenter {
 
-    public TrainPresenter(TrainContact.view view) {
+    public FitnessPresenter(FitnessContact.view view) {
         super(view);
     }
 

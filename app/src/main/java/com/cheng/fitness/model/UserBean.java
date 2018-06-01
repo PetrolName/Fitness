@@ -21,6 +21,8 @@ public class UserBean {
     private String password;
     //用户性别
     private String gender;
+    //用户生日
+    private String birthday;
     //判断用户是不是第一次登录，初始化数据要用
     private boolean isFirstTime;
     public String getGender() {
@@ -59,14 +61,21 @@ public class UserBean {
     public void setIsFirstTime(boolean isFirstTime) {
         this.isFirstTime = isFirstTime;
     }
-    @Generated(hash = 1499882956)
+    public String getBirthday() {
+        return this.birthday;
+    }
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+    @Generated(hash = 765010364)
     public UserBean(Long id, String avatar, String nickname, String password,
-            String gender, boolean isFirstTime) {
+            String gender, String birthday, boolean isFirstTime) {
         this.id = id;
         this.avatar = avatar;
         this.nickname = nickname;
         this.password = password;
         this.gender = gender;
+        this.birthday = birthday;
         this.isFirstTime = isFirstTime;
     }
     @Generated(hash = 1203313951)

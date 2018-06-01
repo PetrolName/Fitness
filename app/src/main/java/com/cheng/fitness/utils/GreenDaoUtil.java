@@ -2,10 +2,12 @@ package com.cheng.fitness.utils;
 
 import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.CourseBean;
+import com.cheng.fitness.model.FitnessRecordBean;
 import com.cheng.fitness.model.UserBean;
 import com.cheng.fitness.utils.greendao.DaoManager;
 import com.cheng.fitness.utils.greendao.gen.CommunityBeanDao;
 import com.cheng.fitness.utils.greendao.gen.CourseBeanDao;
+import com.cheng.fitness.utils.greendao.gen.FitnessRecordBeanDao;
 import com.cheng.fitness.utils.greendao.gen.UserBeanDao;
 
 import java.util.List;
@@ -81,9 +83,28 @@ public class GreenDaoUtil {
         return dao.queryBuilder().list();
     }
 
+    //查找用户信息
+    public static List<CommunityBean> getCommunitiesByName(String nickname) {
+        CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
+        List<CommunityBean> beans = dao.queryBuilder().where(CommunityBeanDao.Properties.Name.eq(nickname)).build().list();
+        return beans;
+    }
+
     //保存用户信息
     public static void updateCommunity(CommunityBean bean) {
         CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
         dao.update(bean);
+    }
+
+    //保存健身记录
+    public static void saveFitnessRecord(FitnessRecordBean bean) {
+        FitnessRecordBeanDao dao = DaoManager.getInstance().getDaoSession().getFitnessRecordBeanDao();
+        dao.insertOrReplace(bean);
+    }
+
+    //获取健身记录列表
+    public static List<FitnessRecordBean> getFitnessRecords() {
+        FitnessRecordBeanDao dao = DaoManager.getInstance().getDaoSession().getFitnessRecordBeanDao();
+        return dao.queryBuilder().list();
     }
 }

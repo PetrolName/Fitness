@@ -19,6 +19,6 @@ public interface PublishContact {
     }
 
     interface presenter extends BasePresenter {
-        void publish(String content);
+        void publish(String content, String imageUrl);
     }
 }

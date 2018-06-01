@@ -1,57 +1,48 @@
 package com.cheng.fitness.views.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cheng.baselib.mvpbase.BasePresenter;
 import com.cheng.baselib.mvpbase.baseImpl.BaseFragment;
 import com.cheng.fitness.R;
-import com.cheng.fitness.common.constant.ConfigConstant;
-import com.cheng.fitness.common.constant.InsertConstant;
-import com.cheng.fitness.contact.TrainContact;
-import com.cheng.fitness.model.CourseBean;
-import com.cheng.fitness.model.UserBean;
-import com.cheng.fitness.presenter.TrainPresenter;
-import com.cheng.fitness.utils.GreenDaoUtil;
+import com.cheng.fitness.utils.DensityUtil;
 import com.cheng.fitness.utils.inter.OnUpdateListener;
+import com.cheng.fitness.views.adapter.FitnessAdapter;
 
-import java.util.List;
+import java.lang.reflect.Field;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * author: PengCheng
- * time: 2018/5/21 0021
- * desc:
+ * time: 2018/5/30 0030
+ * desc: 训练
  */
 
-public class TrainFragment extends BaseFragment<TrainContact.presenter> implements TrainContact.view {
+public class TrainFragment extends BaseFragment {
 
-    @Bind(R.id.tvStartMake)
-    TextView tvStartMake;
-    @Bind(R.id.tvAddTrain)
-    TextView tvAddTrain;
-    @Bind(R.id.tvAddCourseLabel)
-    TextView tvAddCourseLabel;
-    @Bind(R.id.mineFitnessPlanLayout)
-    LinearLayout mineFitnessPlanLayout;
-    @Bind(R.id.mineTrainLayout)
-    RelativeLayout mineTrainLayout;
+
+    @Bind(R.id.tabLayout)
+    TabLayout mTabLayout;
+    @Bind(R.id.viewPager)
+    ViewPager mViewPager;
+
+    private FitnessFragment mFitnessFragment;
+    private RunFragment mRunFragment;
 
     private OnUpdateListener mOnUpdateListener;
 
     @Override
-    public TrainContact.presenter initPresenter() {
-        return new TrainPresenter(this);
-    }
-
-    @Override
-    public void initView(Bundle savedInstanceState) {
-
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override
@@ -60,71 +51,79 @@ public class TrainFragment extends BaseFragment<TrainContact.presenter> implemen
     }
 
     @Override
-    public void loadData() {
-        super.loadData();
-        if (ConfigConstant.getKeyFirstTime()) {
-            InsertConstant.insertCourses();
-            InsertConstant.insertCommunities();
-            UserBean bean = GreenDaoUtil.getUser(ConfigConstant.getKeyUserNickname());
-            bean.setIsFirstTime(false);
-            GreenDaoUtil.updateUser(bean);
-            ConfigConstant.setKeyFirstTime(false);
-        }
+    public void initView(Bundle savedInstanceState) {
+        Timber.d("执行11111");
+        String[] titles = {"健身", "跑步"};
+
+        mFitnessFragment = new FitnessFragment();
+        mFitnessFragment.setUpdateListener(mOnUpdateListener);
+        mRunFragment = new RunFragment();
+        Fragment[] fragments = {mFitnessFragment, mRunFragment};
+        FitnessAdapter adapter = new FitnessAdapter(getChildFragmentManager(), fragments, titles);
+        mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(titles.length);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
-    public void reLoadData() {
-        super.reLoadData();
-        getMinePlanData();
-    }
-
-    private void getMinePlanData() {
-        presenter.getMinePlan();
+    public void loadData() {
+        super.loadData();
+        setTabLayout();
     }
 
     public void setUpdateListener(OnUpdateListener onUpdateListener) {
         mOnUpdateListener = onUpdateListener;
     }
 
-    @OnClick({R.id.tvStartMake, R.id.tvAddTrain})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tvStartMake:
-                if (mOnUpdateListener != null) mOnUpdateListener.onUpdatePosition(2);
-                break;
-            case R.id.tvAddTrain:
-
-                break;
-        }
+    //用反射来设置tablayout宽度
+    public void setTabLayout(){
+        mTabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //拿到tabLayout的mTabStrip属性
+                    Field mTabStripField = mTabLayout.getClass().getDeclaredField("mTabStrip");
+                    mTabStripField.setAccessible(true);
+                    LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(mTabLayout);
+                    int dp10 = DensityUtil.dp2px(10);
+//                    int dp10 = DensityUtil.dp2px(tabLayout.getContext(), 10);
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+                        //拿到tabView的mTextView属性
+                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                        mTextViewField.setAccessible(true);
+                        TextView mTextView = (TextView) mTextViewField.get(tabView);
+                        tabView.setPadding(0, 0, 0, 0);
+                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
+                        int width = 0;
+                        width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width ;
+//                        params.leftMargin = dp10;
+//                        params.rightMargin = dp10;
+                        tabView.setLayoutParams(params);
+                        tabView.invalidate();
+                    }
+//                    setTabDivider();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    //获取我的健身计划成功
-    @Override
-    public void onGetMinePlanSuccess(List<CourseBean> beans) {
-        //如果没有健身计划，则隐藏“我的健身计划”
-        if (beans.size() == 0) mineTrainLayout.setVisibility(View.GONE);
-        handleData(beans);
-    }
-
-    //获取我的健身计划失败
-    @Override
-    public void onGetMinePlanFail(String msg) {
-        showToast(msg);
-    }
-
-    private void handleData(List<CourseBean> beans) {
-        mineFitnessPlanLayout.removeAllViews();
-        for (CourseBean bean : beans) {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_mine_fitness_plan, null);
-            TextView tvName = (TextView) view.findViewById(R.id.tvName);
-            TextView tvHasAppliance = (TextView) view.findViewById(R.id.tvHasAppliance);
-            TextView tvTime = (TextView) view.findViewById(R.id.tvTime);
-            TextView tvStrength = (TextView) view.findViewById(R.id.tvStrength);
-            tvName.setText(bean.getName());
-            tvHasAppliance.setText(bean.getHasAppliance() ? "有器械" : "无器械");
-            tvTime.setText(String.format(getString(R.string.fitness_time), String.valueOf(bean.getTime())));
-            tvStrength.setText(String.format(getString(R.string.fitness_strength), bean.getStrength()));
-            mineFitnessPlanLayout.addView(view);
-        }
+    private void setTabDivider() {
+        LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        linearLayout.setDividerPadding(DensityUtil.dp2px(5));
+        linearLayout.setDividerDrawable(ContextCompat.getDrawable(getActivity(),
+                R.drawable.divider_vertical));
     }
 }

@@ -101,14 +101,16 @@ public class InsertConstant {
         bean1.setContent("清晨的阳光真好！大家起床了吗？一起来慢跑吧！");
         bean1.setTime("2018.5.21");
         bean1.setComment(3);
+        bean1.setImage("image1");
         bean1.setLike(5);
         beans.add(bean1);
 
         CommunityBean bean2 = new CommunityBean();
         bean2.setName("索拉卡");
-        bean2.setContent("清晨的阳光真好！大家起床了吗？一起来慢跑吧！");
+        bean2.setContent("加油加油，坚持就是胜利，休息期间切点猕猴桃嘻嘻。");
         bean2.setTime("2018.5.28");
         bean2.setComment(1);
+        bean2.setImage("image2");
         bean2.setLike(3);
         beans.add(bean2);
 
@@ -117,6 +119,7 @@ public class InsertConstant {
         bean3.setContent("今日打卡，在外出差也不能停下来锻炼的脚步！就是这么任性，就是要成为一个自律的人。我感觉到自己离练成漂亮的腹肌越来越近了。");
         bean3.setTime("2018.5.27");
         bean3.setComment(2);
+        bean3.setImage("image3");
         bean3.setLike(5);
         beans.add(bean3);
 
@@ -125,6 +128,7 @@ public class InsertConstant {
         bean4.setContent("夏天越来越近了，我再也不是冬天的那个胖子了，再也不是！");
         bean4.setTime("2018.5.28");
         bean4.setComment(5);
+        bean4.setImage("image4");
         bean4.setLike(8);
         beans.add(bean4);
 

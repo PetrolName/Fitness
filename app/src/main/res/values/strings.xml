@@ -2,4 +2,7 @@
     <string name="app_name">Fitness</string>
     <string name="fitness_time">%s分钟</string>
     <string name="fitness_strength">强度%s</string>
+    <string name="run_duration">时间：%s秒</string>
+    <string name="run_distance">距离：%s公里</string>
+    <string name="run_tire">疲惫值：%s</string>
 </resources>

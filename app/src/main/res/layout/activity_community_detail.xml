@@ -17,8 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_50"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
-            <include layout="@layout/layout_divider_1"/>
+
+            <include layout="@layout/layout_divider_1" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,10 +67,10 @@
 
             </LinearLayout>
 
-            <ImageView
+            <com.cheng.fitness.views.widget.AutoScaleWidthImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_351"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
@@ -80,8 +86,8 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textSize="@dimen/sp_15"
                 android:textColor="@color/black"
+                android:textSize="@dimen/sp_15"
                 tools:text="坚持" />
         </LinearLayout>
     </ScrollView>

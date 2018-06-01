@@ -10,4 +10,7 @@ public class Constant {
     public static String KEY_COURSE = "key_course";
 
     public static String KEY_COMMUNITY = "key_community";
+
+    //权限
+    public static final int MY_PERMISSIONS_REQUEST_RECORD_CAMERA = 1;
 }

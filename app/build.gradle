@@ -42,4 +42,15 @@ dependencies {
     compile 'org.greenrobot:greendao:3.0.1'
 //    //dialog
 //    compile 'top.zibin:BottomDialog:1.0.5'
+    //日期选择
+    compile 'com.github.addappcn:android-pickers:1.0.3'
+    // 图片加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //图片选择
+    compile'com.github.hss01248:PhotoOut:1.0.3'
+    compile'com.github.hss01248.PhotoPicker:glide:1.0.7'
+    compile'com.github.hss01248.PhotoPicker:fresco:1.0.7'
+    compile'com.github.hss01248.PhotoPicker:picasso:1.0.7'
+    //权限管理
+    compile 'pub.devrel:easypermissions:0.4.2'
 }

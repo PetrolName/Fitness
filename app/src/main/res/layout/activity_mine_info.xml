@@ -96,6 +96,36 @@
             android:drawableRight="@mipmap/icon_right_gray" />
     </LinearLayout>
 
+    <include layout="@layout/layout_divider_1l" />
+
+    <LinearLayout
+        android:id="@+id/birthdayLayout"
+        style="@style/MineLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_10"
+            android:text="生日"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tvBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:textColor="@color/c999999"
+            tools:text="2018-5-30" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@mipmap/icon_right_gray" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvLogout"
         android:layout_width="match_parent"

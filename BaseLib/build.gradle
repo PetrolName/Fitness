@@ -47,4 +47,6 @@ dependencies {
     //设置状态栏
 //    compile 'com.jaeger.statusbarutil:library:1.5.1'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+    //事件总线，同步更新
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

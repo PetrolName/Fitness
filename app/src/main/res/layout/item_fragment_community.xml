@@ -66,8 +66,9 @@
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:maxHeight="@dimen/dp_250"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/image_default_community" />
 

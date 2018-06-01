@@ -12,7 +12,7 @@ import java.util.List;
  * desc:
  */
 
-public interface TrainContact {
+public interface FitnessContact {
     interface view extends BaseView {
         void onGetMinePlanSuccess(List<CourseBean> beans);
         void onGetMinePlanFail(String msg);

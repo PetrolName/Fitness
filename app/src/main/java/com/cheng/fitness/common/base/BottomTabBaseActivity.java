@@ -12,14 +12,16 @@ import android.view.View;
 import com.cheng.baselib.utils.ActivityManager;
 import com.cheng.fitness.R;
 import com.cheng.fitness.views.widget.BottomTabView;
+import com.cheng.fitness.views.widget.NoScrollViewPager;
 
 import java.util.List;
 
 public abstract class BottomTabBaseActivity extends AppCompatActivity {
 
-    public ViewPager viewPager;
+    public NoScrollViewPager viewPager;
     protected BottomTabView bottomTabView;
     FragmentPagerAdapter adapter;
+    private List<Fragment> mFragments;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,21 +32,22 @@ public abstract class BottomTabBaseActivity extends AppCompatActivity {
         ActivityManager.getAppInstance().addActivity(this);//将当前activity添加进入管理栈
         setContentView(R.layout.activity_base_bottom_tab);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = (NoScrollViewPager) findViewById(R.id.viewPager);
         bottomTabView = (BottomTabView) findViewById(R.id.bottomTabView);
-
+        mFragments = getFragments();
         adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return getFragments().get(position);
+                return mFragments.get(position);
             }
 
             @Override
             public int getCount() {
-                return getFragments().size();
+                return mFragments.size();
             }
         };
         viewPager.setOffscreenPageLimit(2);
+        viewPager.setNoScroll(true);
         viewPager.setAdapter(adapter);
 
 //        bottomTabView.setTabItemViews(getTabViews());
