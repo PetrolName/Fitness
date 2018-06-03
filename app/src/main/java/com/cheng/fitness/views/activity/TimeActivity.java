@@ -1,6 +1,7 @@
 package com.cheng.fitness.views.activity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class TimeActivity extends BaseActivity {
     @OnClick(R.id.tvStartOrStop)
     public void onClick(View view) {
         if (!isStart) {
+            chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
             tvStartOrStop.setText("结束");
         } else {

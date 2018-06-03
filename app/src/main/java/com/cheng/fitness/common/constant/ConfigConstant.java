@@ -20,6 +20,8 @@ public class ConfigConstant {
 
     //用户的性别
     public static final String KEY_USER_GENDER = "key_user_gender";
+    //用户的头像
+    public static final String KEY_USER_AVATAR = "key_user_avatar";
 
     public static boolean getKeyFirstTime() {
         return SharedPre.getBoolean(KEY_FIRST_TIME, true);
@@ -51,5 +53,13 @@ public class ConfigConstant {
 
     public static void setKeyUserGender(String gender) {
         SharedPre.putString(KEY_USER_GENDER, gender);
+    }
+
+    public static String getKeyUserAvatar() {
+        return SharedPre.getString(KEY_USER_AVATAR, "");
+    }
+
+    public static void setKeyUserAvatar(String avatar) {
+        SharedPre.putString(KEY_USER_AVATAR, avatar);
     }
 }

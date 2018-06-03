@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.cheng.baselib.mvpbase.BasePresenter;
 import com.cheng.baselib.mvpbase.BaseView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
@@ -38,6 +40,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (setEventBusEnable()) {
+            EventBus.getDefault().register(this);
+        }
         mRootView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, mRootView);
         presenter = initPresenter();
@@ -139,6 +144,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     }
 
 
+    public boolean setEventBusEnable() {
+        return false;
+    }
     /**
      * 在ViewPager中切换时，是否使用懒加载<br/>
      * 如果使用懒加载 ，在setUserVisibleHint中  -->初始化完成，没有加载过，可见，loadData
@@ -160,6 +168,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     @Override
     public void onDestroyView() {
+        if (setEventBusEnable()) {
+            EventBus.getDefault().unregister(this);
+        }
         if (presenter != null) {
             presenter.detach();
         }

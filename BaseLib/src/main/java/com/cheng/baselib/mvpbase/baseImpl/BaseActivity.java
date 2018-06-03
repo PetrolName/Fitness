@@ -17,6 +17,8 @@ import com.cheng.baselib.utils.LoadingDialogUtils;
 import com.cheng.baselib.view.ToolBarView;
 import com.gyf.barlibrary.ImmersionBar;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
@@ -30,7 +32,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupStatusBar();
+        if (setupStatusBarEnable()) setupStatusBar();
+        if (setEventBusEnable()) {
+            EventBus.getDefault().register(this);
+        }
         context = this;
         ActivityManager.getAppInstance().addActivity(this);//将当前activity添加进入管理栈
         mPresenter = initPresenter();
@@ -40,6 +45,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         ButterKnife.bind(this);
         initView(savedInstanceState);
         loadData();
+    }
+
+    protected boolean setupStatusBarEnable() {
+        return true;
     }
 
     protected void setupStatusBar() {
@@ -81,6 +90,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 //    public int getToolBarResId() {
 //        return R.layout.layout_common_toolbar;
 //    }
+    public boolean setEventBusEnable() {
+        return false;
+    }
 
     /**
      * 是否显示通用toolBar
@@ -123,6 +135,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onDestroy() {
+        if (setEventBusEnable()) {
+            EventBus.getDefault().unregister(this);
+        }
         //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
         if (mImmersionBar != null) mImmersionBar.destroy();
         ActivityManager.getAppInstance().removeActivity(this);//将当前activity移除管理栈

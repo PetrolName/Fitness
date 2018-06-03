@@ -1,11 +1,13 @@
 package com.cheng.fitness.views.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cheng.baselib.mvpbase.BasePresenter;
 import com.cheng.baselib.mvpbase.baseImpl.BaseActivity;
+import com.cheng.baselib.utils.CompatUtil;
+import com.cheng.baselib.utils.TextViewUtil;
 import com.cheng.baselib.view.ToolBarView;
 import com.cheng.fitness.R;
 import com.cheng.fitness.common.constant.ConfigConstant;
@@ -62,6 +66,12 @@ public class CommunityDetailActivity extends BaseActivity {
     TextView tvPublish;
     @Bind(R.id.publishLayout)
     RelativeLayout publishLayout;
+    @Bind(R.id.tvBack)
+    TextView tvBack;
+    @Bind(R.id.tvTitle)
+    TextView tvTitle;
+    @Bind(R.id.tvRight)
+    TextView tvRight;
 
     private CommunityBean mCommunityBean;
 
@@ -81,9 +91,17 @@ public class CommunityDetailActivity extends BaseActivity {
         mCommunityBean = (CommunityBean) getIntent().getSerializableExtra(Constant.KEY_COMMUNITY);
     }
 
+    //不用设置状态栏
+    @Override
+    protected boolean setupStatusBarEnable() {
+        return false;
+    }
+
     @Override
     public void initView(Bundle savedInstanceState) {
         if (mCommunityBean == null) return;
+        tvTitle.setText("动态详情");
+        TextViewUtil.setDrawable(tvRight, R.mipmap.icon_publish_add, TextViewUtil.ORIENTATION_RIGHT);
         tvName.setText(mCommunityBean.getName());
         tvTime.setText(mCommunityBean.getTime());
         tvContent.setText(mCommunityBean.getContent());
@@ -104,18 +122,20 @@ public class CommunityDetailActivity extends BaseActivity {
     @Override
     protected void handleToolBar(ToolBarView toolBar) {
         super.handleToolBar(toolBar);
-        toolBar.setVisibility(View.VISIBLE);
-        toolBar.setTitleText("动态详情");
-        toolBar.setDrawable(ToolBarView.TEXT_RIGHT, R.mipmap.icon_publish_add);
-        toolBar.setOnRightClickListener(new ToolBarView.OnBarRightClickListener() {
-            @Override
-            public void onRightClick(View v) {
-                startActivity(new Intent(CommunityDetailActivity.this, PublishActivity.class));
-            }
-        });
+//        toolBar.setVisibility(View.VISIBLE);
+//        toolBar.setTitleText("动态详情");
+//        toolBar.setBackground(R.color.cfee13c);
+////        toolBar.setBackgroundColor(CompatUtil.getColor(CommunityDetailActivity.this, R.color.cfee13c));
+//        toolBar.setDrawable(ToolBarView.TEXT_RIGHT, R.mipmap.icon_publish_add);
+//        toolBar.setOnRightClickListener(new ToolBarView.OnBarRightClickListener() {
+//            @Override
+//            public void onRightClick(View v) {
+//                startActivity(new Intent(CommunityDetailActivity.this, PublishActivity.class));
+//            }
+//        });
     }
 
-    @OnClick({R.id.tvLike, R.id.tvComment, R.id.tvPublish})
+    @OnClick({R.id.tvLike, R.id.tvComment, R.id.tvPublish, R.id.tvBack, R.id.tvRight})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvLike:
@@ -143,11 +163,29 @@ public class CommunityDetailActivity extends BaseActivity {
                     commentBean.setContent(etComment.getText().toString().trim());
                     commentBean.setDate(SystemUtil.getDate());
                     GreenDaoUtil.saveComment(commentBean);
+                    //更新评论的数量
+                    mCommunityBean.setComment(mCommunityBean.getComment() + 1);
+                    tvComment.setText(String.valueOf(mCommunityBean.getComment()));
+                    GreenDaoUtil.updateCommunity(mCommunityBean);
                     setComment();
+                    etComment.setText("");
                     publishLayout.setVisibility(View.GONE);
+                    hideKeyboard();
+                    showToast("评论成功");
                 }
                 break;
+            case R.id.tvBack:
+                CommunityDetailActivity.this.finish();
+                break;
+            case R.id.tvRight:
+                startActivity(new Intent(CommunityDetailActivity.this, PublishActivity.class));
+                break;
         }
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     private void setImage(boolean isLike) {

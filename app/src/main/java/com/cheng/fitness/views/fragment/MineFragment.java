@@ -101,9 +101,13 @@ public class MineFragment extends BaseFragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (bean !=null && !TextUtils.isEmpty(bean.getAvatar())) {
-            Glide.with(getActivity()).load(bean.getAvatar()).into(avatarImage);
         }
+        if (!TextUtils.isEmpty(ConfigConstant.getKeyUserAvatar())) {
+            Glide.with(getActivity()).load(ConfigConstant.getKeyUserAvatar()).into(avatarImage);
+        }
+//        else if (bean !=null && !TextUtils.isEmpty(bean.getAvatar())) {
+//            Glide.with(getActivity()).load(bean.getAvatar()).into(avatarImage);
+//        }
     }
 
 }

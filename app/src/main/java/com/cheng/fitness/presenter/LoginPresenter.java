@@ -33,6 +33,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContact.view> impleme
                 ConfigConstant.setKeyUserNickname(nickname);
                 ConfigConstant.setKeyUserPassword(password);
                 ConfigConstant.setKeyUserGender(TextUtils.isEmpty(bean.getGender()) ? "" : bean.getGender());
+                ConfigConstant.setKeyUserAvatar(TextUtils.isEmpty(bean.getAvatar()) ? "" : bean.getAvatar());
                 view.onLoginSuccess();
             } else {
                 view.onLoginFail("密码不正确");

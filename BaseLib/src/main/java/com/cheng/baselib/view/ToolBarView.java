@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheng.baselib.R;
+import com.cheng.baselib.utils.CompatUtil;
 import com.cheng.baselib.utils.TextViewUtil;
 
 /**
@@ -100,6 +101,10 @@ public class ToolBarView extends LinearLayout {
 //        setStyle(mTvBack, leftText, leftColor, leftTextSize);
 //        setStyle(mTvTitle, titleText, titleColor, titleTextSize);
 //        setStyle(mTvRight, rightText, rightColor, rightTextSize);
+    }
+
+    public void setBackground(int color) {
+        setBackgroundColor(CompatUtil.getColor(getContext(), color));
     }
 
     /**

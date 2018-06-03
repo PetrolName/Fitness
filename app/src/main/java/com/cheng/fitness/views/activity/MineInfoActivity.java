@@ -95,8 +95,8 @@ public class MineInfoActivity extends BaseActivity {
 
             @Override
             public void onSuccessSingle(String s, String compressedPath, int requestCode) {
-                Log.d("MineInfoActivityyy", "onSuccessSingle: " + compressedPath);
                 mUserBean.setAvatar(compressedPath);
+                ConfigConstant.setKeyUserAvatar(compressedPath);
                 GreenDaoUtil.updateUser(mUserBean);
                 Glide.with(MineInfoActivity.this).load(compressedPath).into(avatarImage);
             }
@@ -307,6 +307,7 @@ public class MineInfoActivity extends BaseActivity {
     private void handleLogout() {
         ConfigConstant.setKeyUserPassword("");
         ConfigConstant.setKeyUserGender("");
+        ConfigConstant.setKeyUserAvatar("");
         ActivityManager.getAppInstance().finishAllActivity();
         startActivity(new Intent(MineInfoActivity.this, LoginActivity.class));
     }
