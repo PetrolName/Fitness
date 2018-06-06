@@ -2,11 +2,14 @@ package com.cheng.fitness.views.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -14,9 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.cheng.baselib.mvpbase.BasePresenter;
 import com.cheng.baselib.mvpbase.baseImpl.BaseActivity;
-import com.cheng.baselib.utils.CompatUtil;
 import com.cheng.baselib.utils.TextViewUtil;
 import com.cheng.baselib.view.ToolBarView;
 import com.cheng.fitness.R;
@@ -25,11 +29,17 @@ import com.cheng.fitness.common.constant.Constant;
 import com.cheng.fitness.model.CommentBean;
 import com.cheng.fitness.model.CommunityBean;
 import com.cheng.fitness.model.UserBean;
+import com.cheng.fitness.utils.BitmapUtil;
 import com.cheng.fitness.utils.GreenDaoUtil;
 import com.cheng.fitness.utils.ResUtil;
 import com.cheng.fitness.utils.SystemUtil;
 import com.cheng.fitness.views.widget.AutoScaleWidthImageView;
+import com.cheng.fitness.views.widget.PopupWindow.CommonPopupWindow;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.ImageViewState;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
@@ -43,7 +53,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * desc: 社区详情
  */
 
-public class CommunityDetailActivity extends BaseActivity {
+public class CommunityDetailActivity extends BaseActivity implements CommonPopupWindow.ViewInterface {
     @Bind(R.id.ivAvatar)
     CircleImageView ivAvatar;
     @Bind(R.id.tvName)
@@ -51,7 +61,7 @@ public class CommunityDetailActivity extends BaseActivity {
     @Bind(R.id.tvTime)
     TextView tvTime;
     @Bind(R.id.image)
-    AutoScaleWidthImageView image;
+    SubsamplingScaleImageView image;
     @Bind(R.id.tvContent)
     TextView tvContent;
     @Bind(R.id.tvComment)
@@ -72,8 +82,14 @@ public class CommunityDetailActivity extends BaseActivity {
     TextView tvTitle;
     @Bind(R.id.tvRight)
     TextView tvRight;
+    @Bind(R.id.tvDelete)
+    TextView tvDelete;
 
     private CommunityBean mCommunityBean;
+
+    private CommonPopupWindow mCommonPopupWindow;
+
+    private Long deleteId;
 
     @Override
     public BasePresenter initPresenter() {
@@ -108,34 +124,35 @@ public class CommunityDetailActivity extends BaseActivity {
         tvComment.setText(String.valueOf(mCommunityBean.getComment()));
         tvLike.setText(String.valueOf(mCommunityBean.getLike()));
         setImage(mCommunityBean.getIsLike());
-        if (mCommunityBean.getImage().startsWith("image")) {
-            image.setImageResource(ResUtil.getMipmapId(CommunityDetailActivity.this, mCommunityBean.getImage()));
+        image.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
+        SimpleTarget simpleTarget = new SimpleTarget<File>() {
+            @Override
+            public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
+                int[] size = BitmapUtil.getBitmapSize(resource);
+                float scale = image.getWidth() / (float) size[0];
+                image.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(scale, new PointF(0, 0), 0));
+            }
+        };
+        if (!TextUtils.isEmpty(mCommunityBean.getImage())) {
+            if (mCommunityBean.getImage().startsWith("image")) {
+                Glide.with(this).load(ResUtil.getMipmapId(CommunityDetailActivity.this, mCommunityBean.getImage())).downloadOnly(simpleTarget);
+            } else {
+                Glide.with(this).load(mCommunityBean.getImage()).downloadOnly(simpleTarget);
+            }
         } else {
-            Glide.with(CommunityDetailActivity.this).load(mCommunityBean.getImage()).into(image);
+            Glide.with(this).load(R.mipmap.image_fail).downloadOnly(simpleTarget);
         }
+
+
         if (!TextUtils.isEmpty(mCommunityBean.getAvatar())) {
             Glide.with(CommunityDetailActivity.this).load(mCommunityBean.getAvatar()).into(ivAvatar);
         }
         setComment();
+        if (TextUtils.equals(mCommunityBean.getName(), ConfigConstant.getKeyUserNickname()))
+            tvDelete.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected void handleToolBar(ToolBarView toolBar) {
-        super.handleToolBar(toolBar);
-//        toolBar.setVisibility(View.VISIBLE);
-//        toolBar.setTitleText("动态详情");
-//        toolBar.setBackground(R.color.cfee13c);
-////        toolBar.setBackgroundColor(CompatUtil.getColor(CommunityDetailActivity.this, R.color.cfee13c));
-//        toolBar.setDrawable(ToolBarView.TEXT_RIGHT, R.mipmap.icon_publish_add);
-//        toolBar.setOnRightClickListener(new ToolBarView.OnBarRightClickListener() {
-//            @Override
-//            public void onRightClick(View v) {
-//                startActivity(new Intent(CommunityDetailActivity.this, PublishActivity.class));
-//            }
-//        });
-    }
-
-    @OnClick({R.id.tvLike, R.id.tvComment, R.id.tvPublish, R.id.tvBack, R.id.tvRight})
+    @OnClick({R.id.tvLike, R.id.tvComment, R.id.tvPublish, R.id.tvBack, R.id.tvRight, R.id.tvDelete})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvLike:
@@ -180,6 +197,13 @@ public class CommunityDetailActivity extends BaseActivity {
             case R.id.tvRight:
                 startActivity(new Intent(CommunityDetailActivity.this, PublishActivity.class));
                 break;
+
+            case R.id.tvDelete:
+                GreenDaoUtil.deleteCommunity(mCommunityBean.getId());
+                finish();
+                break;
+            default:
+                break;
         }
     }
 
@@ -199,10 +223,10 @@ public class CommunityDetailActivity extends BaseActivity {
         List<CommentBean> commentList = GreenDaoUtil.getComments(mCommunityBean.getId());
         if (commentList != null && commentList.size() != 0) {
             commentLayout.removeAllViews();
-            for (CommentBean bean : commentList) {
+            for (final CommentBean bean : commentList) {
                 View view = LayoutInflater.from(CommunityDetailActivity.this).inflate(R.layout.item_comment, null);
                 CircleImageView ivAvatar = (CircleImageView) view.findViewById(R.id.ivAvatar);
-                TextView tvName = (TextView) view.findViewById(R.id.tvName);
+                final TextView tvName = (TextView) view.findViewById(R.id.tvName);
                 TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
                 TextView tvContent = (TextView) view.findViewById(R.id.tvContent);
                 if (!TextUtils.isEmpty(bean.getAvatar())) {
@@ -215,9 +239,49 @@ public class CommunityDetailActivity extends BaseActivity {
                 tvName.setText(bean.getName());
                 tvDate.setText(bean.getDate());
                 tvContent.setText(bean.getContent());
+                view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (TextUtils.equals(ConfigConstant.getKeyUserNickname(), bean.getName())) {
+                            deleteId = bean.getId();
+                            showUpPop(tvName);
+                        }
+                        return false;
+                    }
+                });
                 commentLayout.addView(view);
             }
         }
+    }
+
+    //向上弹出
+    public void showUpPop(View view) {
+        if (mCommonPopupWindow != null && mCommonPopupWindow.isShowing()) return;
+        mCommonPopupWindow = new CommonPopupWindow.Builder(this)
+                .setView(R.layout.view_popup)
+                .setWidthAndHeight(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .setViewOnclickListener(this)
+                .create();
+        mCommonPopupWindow.showAsDropDown(view, 0, -(mCommonPopupWindow.getHeight() + view.getMeasuredHeight()));
+
+    }
+
+    @Override
+    public void getChildView(View view, int layoutResId) {
+        TextView tvDelete = (TextView) view.findViewById(R.id.tvDelete);
+        tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCommonPopupWindow.dismiss();
+                if (deleteId != 0) {
+                    GreenDaoUtil.deteleComment(deleteId);
+                    mCommunityBean.setComment(mCommunityBean.getComment() - 1);
+                    tvComment.setText(String.valueOf(mCommunityBean.getComment()));
+                    GreenDaoUtil.updateCommunity(mCommunityBean);
+                    setComment();
+                }
+            }
+        });
     }
 
 }

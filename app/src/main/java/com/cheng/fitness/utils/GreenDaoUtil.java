@@ -92,10 +92,16 @@ public class GreenDaoUtil {
         return beans;
     }
 
-    //保存用户信息
+    //更新社区信息
     public static void updateCommunity(CommunityBean bean) {
         CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
         dao.update(bean);
+    }
+
+    //删除社区信息
+    public static void deleteCommunity(Long communityId) {
+        CommunityBeanDao dao = DaoManager.getInstance().getDaoSession().getCommunityBeanDao();
+        dao.deleteByKey(communityId);
     }
 
     //保存健身记录
@@ -130,5 +136,11 @@ public class GreenDaoUtil {
     public static List<CommentBean> getComments(Long communityId) {
         CommentBeanDao dao = DaoManager.getInstance().getDaoSession().getCommentBeanDao();
         return dao.queryBuilder().where(CommentBeanDao.Properties.CommunityId.eq(communityId)).list();
+    }
+
+    //获取评论
+    public static void deteleComment(Long communityId) {
+        CommentBeanDao dao = DaoManager.getInstance().getDaoSession().getCommentBeanDao();
+        dao.deleteByKey(communityId);
     }
 }

@@ -69,11 +69,10 @@
 
             <include layout="@layout/layout_divider_1" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:paddingBottom="@dimen/dp_5"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10">
@@ -88,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_toRightOf="@+id/ivAvatar"
                     android:orientation="vertical">
 
                     <TextView
@@ -108,10 +108,23 @@
                         tools:text="时间" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tvDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_13"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/round_cff6347_bg"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:text="删除" />
+            </RelativeLayout>
 
-            </LinearLayout>
-
-            <com.cheng.fitness.views.widget.AutoScaleWidthImageView
+            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

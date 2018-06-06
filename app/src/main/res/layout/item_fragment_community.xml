@@ -70,7 +70,7 @@
                 android:layout_height="230dp"
                 android:maxHeight="@dimen/dp_250"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/image_default_community" />
+                android:src="@mipmap/image_fail" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

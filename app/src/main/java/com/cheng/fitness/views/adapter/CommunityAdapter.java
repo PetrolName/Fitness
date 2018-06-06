@@ -43,6 +43,8 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityBean, BaseViewHo
             } else {
                 Glide.with(mContext).load(item.getImage()).into(imageView);
             }
+        } else{
+            Glide.with(mContext).load(R.mipmap.image_fail).into(imageView);
         }
         if (!TextUtils.isEmpty(item.getAvatar())) {
             Glide.with(mContext).load(item.getAvatar()).into(avatarImage);

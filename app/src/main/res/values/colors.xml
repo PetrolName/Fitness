@@ -24,6 +24,9 @@
     <color name="cfee13c">#FEE13C</color>
     <color name="cf6f5f5">#F6F5F5</color>
     <color name="c4a90e2">#4A90E2</color>
+    <color name="cbbbbbb">#bbbbbb</color>
+    <color name="c000000">#FF000000</color>
+    <color name="cff6347">#ff6347</color>
 
     <!--半透明-->
     <color name="c803333">#80333333</color>
